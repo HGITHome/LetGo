@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.dgut.main.entity">
+    <class name="com.dgut.main.entity.Admin" table="le_admin">
+        <meta attribute="sync-DAO">false</meta>
+        <cache usage="read-write"/>
+        <id name="id" type="java.lang.Integer" column="user_id"><generator class="identity"/></id>
+
+        <property name="username" type="java.lang.String" column="username" length="10"/>
+        <property name="password" type="java.lang.String" column="password" />
+        <property name="realname" type="java.lang.String" column="realname" />
+        <property name="gender" type="java.lang.Boolean" column="gender"/>
+
+
+        <property name="rank" type="java.lang.Integer" column="rank"/>
+
+        <property name="disabled" type="java.lang.Boolean" column="is_disabled"/>
+
+        <property name="registerTime" type="java.util.Date" column="register_time"/>
+        <property name="registerIP" type="java.lang.String" column="register_ip"/>
+        <property name="loginCount" type="java.lang.Integer" column="login_count" not-null="false"/>
+        <property name="lastLoginTime" type="timestamp" column="last_login_time" not-null="false"/>
+        <property name="lastLoginIP" type="java.lang.String" column="last_login_ip" not-null="false"/>
+
+        <property name="errorCount" type="java.lang.Integer" column="error_count" not-null="false"/>
+        <property name="errorTime" type="timestamp" column="error_time" not-null="false"/>
+
+
+
+        <many-to-one name="role" column="role_id" class="Role" not-null="false" ></many-to-one>
+
+
+
+
+    </class>
+</hibernate-mapping>

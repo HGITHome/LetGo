@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+	http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd"
+       default-lazy-init="true">
+    <bean id="adminLoginAct" class="com.dgut.main.action.LeAdminLoginAct"/>
+    <bean id="welcomeAct" class="com.dgut.main.action.LeWelcomeAct"/>
+
+
+
+    <bean id="appVersionAct" class="com.dgut.main.action.main.AppVersionAct"/>
+    <bean id="fileUploadAct" class="com.dgut.main.action.main.FileUploadAct"/>
+    <bean id="cmsAdminGlobalAct" class="com.dgut.main.action.main.LeAdminAct"/>
+    <bean id="cmsLogAct" class="com.dgut.main.action.main.LeAdminLogAct"/>
+    <bean id="personalAct" class="com.dgut.main.action.main.LePersonAct"/>
+    <bean id="roleAct" class="com.dgut.main.action.main.LeRoleAct"/>
+    <bean id="dataAct" class="com.dgut.main.action.main.assist.LeDBDataAct"/>
+
+    <bean id="applyAct" class="com.dgut.main.member.action.LeApplyAct"/>
+    <bean id="commentAct" class="com.dgut.main.member.action.LeCommentAct"/>
+    <bean id="friendshipAct" class="com.dgut.main.member.action.LeFriendshipAct"/>
+    <bean id="memberAct" class="com.dgut.main.member.action.LeMemberAct"/>
+    <bean id="memberLogAct" class="com.dgut.main.member.action.LeMemberLogAct"/>
+    <bean id="talkAct" class="com.dgut.main.member.action.LeTalkAct"/>
+
+</beans>

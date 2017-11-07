@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title></title>
+<#include "/admin_sys/head.html"/>
+<script src="${base}/thirdparty/swfupload/swfupload.js" type="text/javascript"></script>
+<script src="${base}/thirdparty/swfupload/swfupload.queue.js" type="text/javascript"></script>
+<script src="${base}/thirdparty/swfupload/fileprogress.js" type="text/javascript"></script>
+<script src="${base}/thirdparty/swfupload/handlers.js" type="text/javascript"></script>
+<link href="${base}/thirdparty/swfupload/process.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">
+
+
+function getTableForm() {
+	return document.getElementById("tableForm");
+}
+
+$(document).ready(function(){
+	$("#selectAll").click(function(){
+		if($("#selectAll").parent().attr("class")=="checked"){
+
+
+			$("input[name=names]").attr("checked","true");
+			$("input[name=names]").parent().attr("class","checked");
+			$("input[name='names']").prop("disabled", true);
+
+
+		}
+		else{
+			$("input[name=names]").parent().removeAttr("class","checked");
+			$("input[name='names']").prop("disabled", false);
+
+		}
+
+
+
+
+	})
+});
+function checkTableNames(){
+	var tables=new Array();
+	$('input[name="names"]').each(function(){
+		if($(this).parent().hasClass('checked')){
+
+			tables.push($(this).attr('value'));
+		}
+	});
+//	return tables.length==0;
+	return tables;
+}
+function optDelete() {
+
+
+
+	if(!confirm('确定删除数据库备份？'))
+	{
+		return false;
+	}
+	var table = checkTableNames();
+	if(table.length==0){
+		alert("至少选择一个数据库表再进行操作");
+		return;
+	}
+	else {
+		var f = getTableForm();
+		$("#tableNames").val(table.join(","));
+
+
+		f.action = "o_delete.do?names="+$("#tableNames").val();
+		f.submit();
+	}
+}
+function optExport() {
+
+
+
+	var table = checkTableNames();
+	if(table.length==0){
+		alert("至少选择一个数据库表再进行操作");
+		return;
+	}
+
+
+	else {
+		var f = getTableForm();
+
+		$("#tableNames").val(table.join(","));
+		f.action = "o_export.do?names="+$("#tableNames").val();
+		f.submit();
+	}
+}
+</script>
+</head>
+
+<body
+	class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid page-md">
+	<!-- BEGIN HEADER -->
+	<#include "/admin_sys/top.html"/>
+	<!-- END HEADER -->
+	<!-- BEGIN HEADER & CONTENT DIVIDER -->
+	<div class="clearfix"></div>
+	<!-- END HEADER & CONTENT DIVIDER -->
+	<!-- BEGIN CONTAINER -->
+	<div class="page-container">
+		<!-- BEGIN SIDEBAR -->
+		<#assign tb_17=true />
+			<#assign tb_17_ul=true  />
+			<#assign tb_17_li_2=true />
+			<#assign tb_17_arrow=true />
+		<#include "/admin_sys/left.html"/>
+		<!-- END SIDEBAR -->
+		<div class="page-content-wrapper">
+			<!-- BEGIN CONTENT BODY -->
+			<div style="min-height:1022px" class="page-content">
+				<!-- page bar start -->
+				<div class="page-bar">
+
+					<ul class="page-breadcrumb">
+						<li><a href="${base}/admin/data/v_list.do">数据库备份</a> <i class="fa fa-angle-right"></i>
+						</li>
+						<li><span>数据库列表</span></li>
+					</ul>
+				</div>
+
+
+				<div class="row">
+					<div class="col-md-12">
+						<!-- BEGIN SAMPLE TABLE PORTLET -->
+						<div class="portlet box blue">
+							<div class="portlet-title">
+								<div class="caption">
+									<i class="fa fa-comments"></i>数据库备份列表
+								</div>
+								<!--<div class="actions">
+									<a class="dt-button buttons-print btn white  btn-outline"
+										href="v_list.do" tabindex="0"><span>返回</span> </a>
+								</div>-->
+							</div>
+							
+							
+							<div class="portlet-body">
+									<form id="tableForm" method="post">
+									<div class="table-scrollable">
+										<table
+											class="table table-bordered table-hover dataTable ">
+											<thead>
+												<tr>
+													 <th ><input type="checkbox" id="selectAll">全选</th>
+													<th style="text-align: center;" >文件名</th>
+													<th style="text-align: center;" >大小</th>
+													<th style="text-align: center;" >最后修改时间</th>
+													<th style="text-align: center;" >操作选项</th>			
+												</tr>
+											</thead>
+											<tbody>
+												
+												<#list list as file>
+												<tr>
+													 <td> <input type="checkbox" name="names" value="${file.filename}"/></td>
+													<td  >${file.filename}</td>
+													<td  >${file.size}KB</td>
+													<td  >${file.lastModifiedDate?string('yyyy-MM-dd HH:mm:ss')}</td>
+
+													<td >
+														<div class="btn-group">
+															<button class="btn btn-xs blue dropdown-toggle"
+																type="button" data-toggle="dropdown"
+																aria-expanded="false">
+																选择操作 <i class="fa fa-angle-down"></i>
+															</button>
+															<ul class="dropdown-menu pull-right" role="menu">
+																<@cms_perm url="/admin_global/v_edit.do"> 
+																<li><a href="o_export.do?names=${file.filename}"> <i
+																		class="icon-docs"></i>下载 </a></li> 
+																		</@cms_perm>
+																<@cms_perm url="/admin_global/o_delete.do"> 
+																<li><a href="o_delete.do?names=${file.filename}"
+																	onclick="if(!confirm('确定删除？')) {return false;}">
+																		<i class="icon-tag"></i>删除 </a></li> 
+																		</@cms_perm>
+
+															</ul>
+														</div>
+													
+													</td>
+												</tr>
+											</#list>												
+											</tbody>
+										</table>
+									</div>
+							<input type="hidden" name="names" id="tableNames"/>
+									</form>
+
+							<div class="row">
+							<div class="col-md-offset-4">
+
+
+
+								<div class="col-md-2">
+
+										<button type="submit" class="btn  btn-primary" onclick="optExport()">
+											<i class="fa fa-check"></i> <@s.m "global.export"/>
+										</button>
+
+								</div>
+
+								<div class="col-md-4">
+
+
+											<button type="submit" class="btn  red-mint" onclick="optDelete()">
+												<i class="bs-glyphicon-class"></i> <@s.m "global.delete"/>
+											</button>
+
+
+								</div>
+								</div>
+								</div>
+							</div>
+							
+							
+
+						</div>
+						<!-- END SAMPLE TABLE PORTLET -->
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+		<!-- BEGIN CONTENT -->
+
+		<#include "../common/bootAlert_message.html"/>
+	</div>
+	<!-- END CONTAINER -->
+</body>
+
+
+
+
+</html>

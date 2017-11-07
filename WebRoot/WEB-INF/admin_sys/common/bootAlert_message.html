@@ -1,0 +1,9 @@
+<#if message??>
+<script type="text/javascript">
+
+ bootbox.alert("<@s.mt code=message text=message/>"); 
+</script>
+   
+</#if>
+
+

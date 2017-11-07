@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<!-- 
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.6
+Version: 4.5.5
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Dribbble: www.dribbble.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+<!--[if IE 8]>
+<html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]>
+<html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+
+<head>
+	<meta charset="utf-8"/>
+	<title>letsgo后台管理系统</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta content="width=device-width, initial-scale=1" name="viewport"/>
+	<meta content="" name="description"/>
+	<meta content="" name="author"/>
+	<!-- BEGIN GLOBAL MANDATORY STYLES -->
+	<#include "/admin_sys/head.html"/>
+
+
+	<script type="text/javascript">
+
+	</script>
+</head>
+<!-- END HEAD -->
+
+<body
+		class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid page-md">
+<!-- BEGIN HEADER -->
+<#include "/admin_sys/top.html"/>
+<!-- END HEADER -->
+<!-- BEGIN HEADER & CONTENT DIVIDER -->
+<div class="clearfix"></div>
+<!-- END HEADER & CONTENT DIVIDER -->
+<!-- BEGIN CONTAINER -->
+<div class="page-container">
+	<!-- BEGIN SIDEBAR -->
+	<#assign tb_24=true />
+	<#assign tb_24_ul=true  />
+	<#assign tb_24_li_2=true />
+	<#assign tb_24_arrow=true />
+	<#include "/admin_sys/left.html"/>
+	<!-- END SIDEBAR -->
+	<div class="page-content-wrapper">
+		<!-- BEGIN CONTENT BODY -->
+		<div style="min-height:1022px" class="page-content">
+			<!-- page bar start -->
+			<div class="page-bar">
+
+				<ul class="page-breadcrumb">
+					<li><a href="#">朋友圈统计 </a> <i class="fa fa-angle-right"></i>
+					</li>
+
+				</ul>
+			</div>
+
+
+			<div class="row">
+				<div class="col-md-4 ">
+
+
+					<div class="portlet box yellow">
+						<div class="portlet-title">
+							<div class="caption">
+								<i class="fa fa-comments"></i>分享达人
+							</div>
+						</div>
+						<div class="portlet-body">
+							<div class="table-scrollable">
+								<table
+										class="table table-bordered table-hover dataTable table-checkable ">
+									<thead>
+									<tr>
+										<th>达人</th>
+										<th>次数</th>
+
+
+									</tr>
+									</thead>
+									<tbody>
+
+									<#list shareMen as s>
+										<tr>
+
+											<td>${s.username}</td>
+											<td>${s.count}</td>
+
+										</tr>
+									</#list>
+
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-md-4 ">
+
+
+					<div class="portlet box red">
+						<div class="portlet-title">
+							<div class="caption">
+								<i class="fa fa-comments"></i>点赞狂人
+							</div>
+						</div>
+						<div class="portlet-body">
+							<div class="table-scrollable">
+								<table
+										class="table table-bordered table-hover dataTable table-checkable ">
+									<thead>
+									<tr>
+										<th>达人</th>
+										<th>次数</th>
+
+
+									</tr>
+									</thead>
+									<tbody>
+
+									<#list tapLikeMen as t>
+										<tr>
+
+											<td>${t.username}</td>
+											<td>${t.count}</td>
+
+										</tr>
+									</#list>
+
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+
+			<div class="row">
+
+				<div class="col-md-4 ">
+					<div id="talkSex" title="朋友圈性别分布 " style="width: 300px;height:200px; display: inline; "></div>
+				</div>
+				<div class="col-md-4 ">
+					<div id="commentSex" title="评论性别分布 " style="width: 300px;height:200px; display: inline;"></div>
+				</div>
+				<div class="col-md-4 ">
+					<div id="talkLikeSex" title="点赞性别分布 " style="width: 300px;height:200px; display: inline;"></div>
+				</div>
+
+			</div>
+
+			<div class="row">
+				<div id="timeList" style="width: 600px;height:300px; float:left;display: inline; "></div><br/>
+
+		</div>
+	</div>
+	<!-- BEGIN CONTENT -->
+
+	<script type="text/javascript"
+			src="${base}/res/assets/global/plugins/echarts/pie_echarts.min.js"></script>
+
+	<script type="text/javascript">
+		var talkSex = echarts.init(document.getElementById('talkSex'));
+		var commentSex = echarts.init(document.getElementById('commentSex'));
+		var talkLikeSex = echarts.init(document.getElementById('talkLikeSex'));
+
+		<#if dataMap??>
+		<#list dataMap?keys as key>
+		<#assign minMap = dataMap[key] />
+				${key} = {
+			title : {
+				text: <#if key=="talkDistribution">'朋友圈性别比例'<#elseif key=="commentDistribution">'评论性别比例'<#else>'点赞性别比例'</#if>,
+		subtext: '',
+				x:'center'
+		},
+		tooltip : {
+			trigger: 'item',
+					formatter: "{a} <br/>{b} : {c} ({d}%)"
+		},
+		legend: {
+			orient: 'vertical',
+					left: 'left',
+		},
+		series : [
+			{
+				name: '',
+				type: 'pie',
+				radius : '55%',
+				center: ['50%', '60%'],
+				data:[
+				<#if minMap?exists>
+		<#list minMap as objs>
+		{value: ${objs[1]},name:'${objs[0]}'},
+		</#list>
+		</#if>
+		],
+		itemStyle: {
+			emphasis: {
+				shadowBlur: 10,
+						shadowOffsetX: 0,
+						shadowColor: 'rgba(0, 0, 0, 0.5)'
+			}
+		}
+		}
+		]
+		};
+		</#list>
+		</#if>
+		talkSex.setOption(talkDistribution);
+		commentSex.setOption(commentDistribution);
+		talkLikeSex.setOption(tapLikeDistribution);
+
+		var timeList = echarts.init(document.getElementById('timeList'));
+		option = {
+			title: {
+				text: '朋友圈日汇总'
+			},
+			tooltip : {
+				trigger: 'axis'
+			},
+			legend: {
+				data:[
+					'红包总计'
+
+				]
+			},
+			toolbox: {
+				show : true,
+				orient: 'horizontal',      // 布局方式，默认为水平布局，可选为：
+				// 'horizontal' ¦ 'vertical'
+				x: 'right',                // 水平安放位置，默认为全图右对齐，可选为：
+				// 'center' ¦ 'left' ¦ 'right'
+				// ¦ {number}（x坐标，单位px）
+				y: 'top',                  // 垂直安放位置，默认为全图顶端，可选为：
+				// 'top' ¦ 'bottom' ¦ 'center'
+				// ¦ {number}（y坐标，单位px）
+				color : ['#1e90ff','#22bb22','#4b0082','#d2691e'],
+				backgroundColor: 'rgba(0,0,0,0)', // 工具箱背景颜色
+				borderColor: '#ccc',       // 工具箱边框颜色
+				borderWidth: 0,            // 工具箱边框线宽，单位px，默认为0（无边框）
+				padding: 5,                // 工具箱内边距，单位px，默认各方向内边距为5，
+				showTitle: true,
+				feature: {
+					/* saveAsImage: {
+					 show : true,
+					 title : '保存为图片',
+					 type : 'jpeg',
+					 lang : ['点击本地保存']
+					 }*/
+
+				}
+			},
+			grid: {
+				left: '3%',
+				right: '4%',
+				bottom: '3%',
+				containLabel: true
+			},
+			xAxis : [
+				{
+					type : 'category',
+					boundaryGap : false,
+					data : [
+					<#list timeList as t>
+		'${t}',
+		</#list>
+		]
+		}
+		],
+		yAxis : [
+			{
+				type : 'value'
+			}
+		],
+				magicType: {
+			show : true,
+					title : {
+				tiled : '平铺',
+			},
+
+		},
+		series : [
+
+			{
+				name:'朋友圈总计',
+				type:'line',
+//                data:[11, 11, 15, 13, 12, 13, 10],a:
+				data:[
+				<#list countList as c>
+		'${c}',
+		</#list>
+		]
+
+		},
+
+		]
+
+
+		};
+		timeList.setOption(option);
+
+
+	</script>
+
+
+
+
+	<#include "../common/bootAlert_message.html"/>
+	<!-- END CONTENT -->
+
+</div>
+<!-- END CONTAINER -->
+</body>
+
+</html>

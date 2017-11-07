@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.dgut.main.member.entity">
+	<class name="City" table="le_city">
+		<meta attribute="sync-DAO">false</meta>
+		<cache usage="read-write"/>
+		<id name="id" type="integer" column="city_id"><generator class="identity"/></id>
+		<property name="city_name" column="city_name" type="string" not-null="true" length="35"/>
+		<property name="priority" column="priority" type="integer" not-null="true"/>
+		<many-to-one name="province" column="province_id" class="Province"/>
+		
+		
+	</class>
+</hibernate-mapping>

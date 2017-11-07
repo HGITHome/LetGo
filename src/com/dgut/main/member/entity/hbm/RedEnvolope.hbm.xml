@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.dgut.main.member.entity">
+	<class name="RedEnvolope" table="le_redEnvolope">
+		<meta attribute="sync-DAO">false</meta>
+		<!--<cache usage="read-write"/>-->
+		<id name="id" type="integer" column="id"><generator class="identity"/></id>
+		<property name="num" column="num" type="integer" not-null="true"/>
+
+
+		<property name="type" >
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">com.dgut.main.member.entity.base.BaseRedEnvolope$RedEnvolopeType</param>
+			</type>
+		</property>
+		<property name="total" column="total" type="java.lang.Double" />
+		<property name="sendTime" column="send_time" type="timestamp" not-null="true" />
+		<property name="surplus" column="surplus" type="java.lang.Double"/>
+		<property name="isPublic" column="isPublic" type="java.lang.Boolean"/>
+		<property name="content" column="content" type="java.lang.String" not-null="false"/>
+		<property name="isInvalid" column="isInvalid" type="java.lang.Boolean" not-null="true"/>
+
+		<many-to-one name="sender" unique="true" class="Member" not-null="true" column="sender_id"/>
+		<many-to-one name="group" unique="true" class="ChatGroup" not-null="false" column="group_id"/>
+
+		<many-to-one name="luckyMan" unique="true" class="Member" not-null="false"
+					 column="luckyMan_id"/>
+
+		<bag name="receiverList"  cascade="all" inverse="true" >
+			<!--<cache usage="read-write"/>-->
+			<key column="redEnvolope_id" not-null="true"/>
+			<one-to-many  class="RedEnvolopeReceiver"/>
+		</bag>
+
+		
+	</class>
+</hibernate-mapping>

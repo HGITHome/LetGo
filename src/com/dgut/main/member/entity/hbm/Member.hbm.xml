@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.dgut.main.member.entity">
+	<class name="Member" table="le_member">
+		<meta attribute="sync-DAO">false</meta>
+		<!-- <cache usage="read-write"/> -->
+		<id name="id" type="java.lang.Integer" column="user_id"><generator class="identity"/></id>
+		<property name="username" column="username" type="string" not-null="true" length="100"/>
+		<property name="password" column="password" type="string" not-null="true" length="32"/>
+		<property name="icon" column="icon" type="string" not-null="false" length="100"/>
+		<property name="mobile" column="mobile" type="string" not-null="false" length="15"/>
+		<property name="registerTime" column="register_time" type="timestamp" not-null="true" length="19"/>
+		<property name="registerIP" column="register_ip" type="string" not-null="true" length="50"/>
+		<property name="lastLoginTime" column="last_login_time" type="timestamp" not-null="false" length="19"/>
+		<property name="lastLoginIP" column="last_login_ip" type="string" not-null="false" length="50"/>
+		<property name="loginCount" column="login_count" type="integer" not-null="true" length="10"/>
+	
+		<property name="disabled" column="is_disabled" type="java.lang.Boolean" not-null="true"/>
+		<!-- <property name="chinese" column="chinese" type="string" length="10" not-null="true"/> -->
+		<property name="realname" column="realname" type="string" not-null="false" length="100"/>
+		<property name="easemob_name" column="easemob_name" type="string" not-null="false" length="10"/>
+		<property name="easemob_flag" column="easemob_flag" type="java.lang.Boolean" not-null="true"/>
+		<property name="gender" column="gender" type="java.lang.Boolean" not-null="false"/>
+		<property name="payAccount" column="pay_account" type="java.lang.String" not-null="false"/>
+		
+		<property name="errorTime" column="error_time" type="timestamp" not-null="false" length="19"/>
+		<property name="errorCount" column="error_count" type="integer" not-null="true" length="10"/>
+		<property name="balance" column="balance" type="string" not-null="true"/>
+		<!--<property name="errorIP" column="error_ip" type="string" not-null="false" length="50"/>-->
+			
+		<many-to-one name="city" column="city_id" class="City" not-null="false"/>	
+		
+		<!--<bag name="friendships" table="le_friend" inverse="true">
+			<key column="user_id" not-null="true"></key>
+			<one-to-many class="Friendship"/>
+		</bag>-->
+
+		<set name="friendships" table="le_friend" inverse="true">
+			<key column="user_id" not-null="true"></key>
+			<one-to-many class="Friendship"/>
+		</set>
+	</class>
+</hibernate-mapping>

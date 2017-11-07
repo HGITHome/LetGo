@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.dgut.main.member.entity">
+	<class name="Talk" table="le_talk">
+		<meta attribute="sync-DAO">false</meta>
+		<cache usage="read-write"/>
+		<id name="id" type="integer" column="id"><generator class="identity"/></id>
+		<property name="content" column="content" type="string" not-null="false"/>
+		<property name="publish_time" column="publish_time" type="timestamp" not-null="true" />
+		<property name="video_url" column="video_url" type="string" not-null="false" length="150"/>
+		<property name="disabled" column="disabled" type="boolean" not-null="true"/>
+		<bag name="photo_urls" table="le_talk_photo"   cascade="all">
+			<cache usage="read-write"/>
+			<key column="talk_id" not-null="true"/>
+			<one-to-many class="Photo" />
+			<!-- <element column="source_photo" type="string" length="150" not-null="true"/> -->
+			
+		</bag>
+		
+		
+		<bag name="talkLikes" table="le_talk_like" inverse="true" cascade="all">
+			<cache usage="read-write"/>
+			<key column="talk_id" not-null="true"></key>
+			<one-to-many class="TalkLike"/>		
+		</bag>
+		
+		<bag name="talkComments" table="le_talk_comment" inverse="true" cascade="all">
+			<cache usage="read-write"/>
+			<key column="talk_id" not-null="true"></key>
+			<one-to-many class="TalkComment"/>
+		</bag>
+		
+		
+		
+		<many-to-one name="publisher" class="Member" column="user_id"/>
+		
+	
+		
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.dgut.main.member.entity">
+	<class name="TalkLike" table="le_talk_like">
+		<meta attribute="sync-DAO">false</meta>
+		<cache usage="read-write"/>
+		<id name="id" type="integer" column="id"><generator class="identity"/></id>
+		<property name="message_time" column="tap_time" type="timestamp" not-null="true"/>
+		<property name="disabled" column="disabled" type="boolean" not-null="true"/>
+		<many-to-one name="talk" class="Talk" column="talk_id" not-null="true"/>
+		<many-to-one name="publisher"  class="Member" column="user_id" not-null="true"/>
+		
+		
+		
+	</class>
+</hibernate-mapping>

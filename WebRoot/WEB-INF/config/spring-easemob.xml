@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:config.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="clientConext" class="com.dgut.common.easemob.comm.ClientContext" >
+        <property name="protocal" value="${API_PROTOCAL}"/>
+        <property name="host" value="${API_HOST}"/>
+        <property name="org" value="${API_ORG}"/>
+        <property name="app" value="${API_APP}"/>
+        <property name="clientId" value="${APP_CLIENT_ID}"/>
+        <property name="clientSecret" value="${APP_CLIENT_SECRET}"/>
+        <property name="impLib" value="${APP_IMP_LIB}"/>
+        <property name="initialized" value="true"/>
+    </bean>
+
+    <!--<bean id="clientConext" class="com.punk.chat.easemob.comm.ClientContext" init-method="initFromPropertiesFile"/>-->
+
+    <bean id="easemobRestAPIFactory" class="com.dgut.common.easemob.comm.EasemobRestAPIFactory">
+        <constructor-arg name="context" ref="clientConext"/>
+    </bean>
+
+
+
+
+   <!-- <bean id="headerWrapper" class="com.punk.chat.easemob.comm.wrapper.HeaderWrapper" init-method="newInstance"/>-->
+
+
+
+
+
+
+    <bean id="headerHelper" class="com.dgut.common.easemob.comm.helper.HeaderHelper" init-method="getDefaultHeader">
+        <property name="context" ref="clientConext"/>
+
+    </bean>
+
+   <!-- <bean id="tokenGenerator" class="com.punk.chat.easemob.comm.TokenGenerator"/>-->
+
+
+
+
+
+
+
+</beans>

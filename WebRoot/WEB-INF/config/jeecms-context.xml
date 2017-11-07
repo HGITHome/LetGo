@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd"
+	default-lazy-init="true">
+	<!--&lt;!&ndash; 国际化和'热'加载文件(不用重启应用). &ndash;&gt;
+	<bean id="tplMessageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+		<property name="cacheSeconds" value="0"/>
+		<property name="basenames">
+			<list>
+				<value>/WEB-INF/languages/jeecms_admin/messages</value>
+				<value>/WEB-INF/languages/jeecms_front/messages</value>
+			</list>
+		</property>
+	</bean>-->
+	<!--标签-->
+	
+	<!--后台权限标签-->
+	<bean id="cms_perm" class="com.dgut.main.web.PermistionDirective"/>
+	<!--<bean id="text_cut" class="com.dgut.common.web.freemarker.TextCutDirective"/>
+	<bean id="html_cut" class="com.dgut.common.web.freemarker.HtmlCutDirective"/>-->
+
+
+	
+
+	<!--<bean id="roleMng" class="com.dgut.main.manager.impl.RoleMngImpl"/>-->
+
+
+
+
+	<!--DAO-->
+	<bean id="adminDao" class="com.dgut.main.dao.impl.AdminDaoImpl"/>
+	<bean name="adminAuthenticationDao" class="com.dgut.main.dao.impl.AdminAuthenticationDaoImpl"/>
+	<bean name="adminLogDao" class="com.dgut.main.dao.impl.AdminLogDaoImpl"/>
+	<bean id="applyDao" class="com.dgut.main.member.dao.impl.ApplyDaoImpl"/>
+	<bean id="apkVersionDao" class="com.dgut.main.dao.impl.ApkVersionDaoImpl"/>
+	<bean id="accusationDao" class="com.dgut.main.dao.impl.AccusationDaoImpl"/>
+	<bean id="accsationCategoryDao" class="com.dgut.main.dao.impl.AccusationCategoryDaoImpl"/>
+	<bean id="accusationTypeDao" class="com.dgut.main.dao.impl.AccusationTypeDaoImpl"/>
+	<bean id="chatGroupDao" class="com.dgut.main.member.dao.impl.ChatGroupDaoImpl"/>
+	<bean id="cityDao" class="com.dgut.main.member.dao.impl.CityDaoImpl"/>
+	<bean name="databackDao" class="com.dgut.main.dao.assist.impl.DataBackDaoImpl">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<bean id="dbFileDao" class="com.dgut.main.dao.assist.impl.DBFileDaoImpl"/>
+	<bean id="friendshipDao" class="com.dgut.main.member.dao.impl.FriendshipDaoImpl"/>
+	<bean id="memberDao" class="com.dgut.main.member.dao.impl.MemberDaoImpl"/>
+	<bean name="memberAuthenticationDao" class="com.dgut.main.member.dao.impl.MemberAuthenticationDaoImpl"/>
+	<bean name="memberLogDao" class="com.dgut.main.member.dao.impl.MemberLogDaoImpl"/>
+	<bean id="provinceDao" class="com.dgut.main.member.dao.impl.ProvinceDaoImpl"/>
+	<bean id="redEnvolopeDao" class="com.dgut.main.member.dao.impl.RedEnvolopeDaoImpl"/>
+	<bean id="redEnvolopeReceiverDao" class="com.dgut.main.member.dao.impl.RedEnvolopeReceiverDaoImpl"/>
+	<bean id="redChargeDao" class="com.dgut.main.member.dao.impl.RechargeDaoImpl"/>
+	<bean id="roleDao" class="com.dgut.main.dao.impl.RoleDaoImpl"/>
+	<bean id="talkDao" class="com.dgut.main.member.dao.impl.TalkDaoImpl"/>
+	<bean id="talkLikeDao" class="com.dgut.main.member.dao.impl.TalkLikeDaoImpl"/>
+	<bean id="talkCommentDao" class="com.dgut.main.member.dao.impl.TalkCommentDaoImpl"/>
+	<bean id="withdrawDao" class="com.dgut.main.member.dao.impl.WithdrawDaoImpl"/>
+
+
+
+	<!--MANAGER-->
+	<bean id="adminMng" class="com.dgut.main.manager.impl.AdminMngImpl"/>
+	<!--<bean id="adminLogMng" class="com.dgut.main.manager.impl.AdminLogMngImpl"/>	-->
+	<bean name="adminAuthenticationMng" class="com.dgut.main.manager.impl.AdminAuthenticationMngImpl"/>
+	<bean name="adminLogMng" class="com.dgut.main.manager.impl.AdminLogMngImpl"/>
+	<bean id="applyMng" class="com.dgut.main.member.manager.impl.ApplyMngImpl"/>
+	<bean id="apkVersionMng" class="com.dgut.main.manager.impl.ApkVersionMngImpl"/>
+	<bean id="accusactionMng" class="com.dgut.main.manager.impl.AccusationMngImpl"/>
+
+	<bean id="chatGroupMng" class="com.dgut.main.member.manager.impl.ChatGroupMngImpl"/>
+	<bean id="dataBackMng" class="com.dgut.main.manager.assist.impl.DataBackMngImpl"/>
+	<bean id="dataSummaryMng" class="com.dgut.main.manager.assist.impl.DataSummaryMngImpl"/>
+	<bean id="dbFileMng" class="com.dgut.main.manager.assist.impl.DBFileMngImpl"/>
+	<bean id="friendshipMng" class="com.dgut.main.member.manager.impl.FriendshipMngImpl"/>
+	<bean id="memberMng" class="com.dgut.main.member.manager.impl.MemberMngImpl"/>
+	<bean name="memberAuthenticationMng" class="com.dgut.main.member.manager.impl.MemberAuthenticationMngImpl"/>
+	<bean name="memberLogMng" class="com.dgut.main.member.manager.impl.MemberLogMngImpl"/>
+	<bean id="rechargeMng" class="com.dgut.main.member.manager.impl.RechargeMngImpl"/>
+	<bean id="redEnvolopeMng" class="com.dgut.main.member.manager.impl.RedEnvolopeMngImpl"/>
+
+	<bean id="resourceMng" class="com.dgut.main.manager.assist.impl.DBResourceMngImpl"/>
+	<bean id = "roleMng" class="com.dgut.main.manager.impl.RoleMngImpl"/>
+	<bean id="talkMng" class="com.dgut.main.member.manager.impl.TalkMngImpl"/>
+	<bean id="talkLikeMng" class="com.dgut.main.member.manager.impl.TalkLikeMngImpl"/>
+	<bean id="talkCommentMng" class="com.dgut.main.member.manager.impl.TalkCommentMngImpl"/>
+	<bean id="withdrawMng" class="com.dgut.main.member.manager.impl.WithdrawMngImpl"/>
+
+
+</beans>

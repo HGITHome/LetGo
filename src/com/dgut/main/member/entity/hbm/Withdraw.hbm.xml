@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.dgut.main.member.entity">
+	<class name="Withdraw" table="le_withdraw">
+		<meta attribute="sync-DAO">false</meta>
+		<cache usage="read-write"/>
+		<id name="id" type="java.lang.Integer" column="withdraw_id"><generator class="identity"/></id>
+		<property name="withdrawTime" column="withdraw_time" type="timestamp" not-null="true"/>
+		<property name="finishTime" column="finish_time" type="timestamp" not-null="false"/>
+		<property name="withdrawAmount" column="withdraw_amount" type="java.lang.Double" not-null="true"/>
+		<property name="withdrawStatus" column="withdraw_status" type="java.lang.Boolean" not-null="true"/>
+		
+		<property name="withdrawIp" column="ip" type="java.lang.String" length="20" not-null="true"/>
+		
+		<many-to-one name="member" column="userid" class="Member" />
+		
+	</class>
+</hibernate-mapping>

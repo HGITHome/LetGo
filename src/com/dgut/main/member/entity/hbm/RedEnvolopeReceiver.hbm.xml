@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.dgut.main.member.entity">
+	<class name="RedEnvolopeReceiver" table="le_redEnvolope_user">
+		<meta attribute="sync-DAO">false</meta>
+		<cache usage="read-write"/>
+		<id name="id" type="integer" column="id"><generator class="identity"/></id>
+		<property name="amount" column="amount" type="java.lang.Double" not-null="false"/>
+
+		<property name="receiveTime" column="receive_time" type="timestamp" not-null="false" />
+		<property name="isReceived" column="isReceived" type="java.lang.Boolean"/>
+		<many-to-one name="receiver" column="receiver_id" unique="true" class="Member" not-null="true"/>
+
+		<many-to-one name="redEnvolope" column="redEnvolope_id" class="RedEnvolope"/>
+
+
+
+
+
+	</class>
+</hibernate-mapping>

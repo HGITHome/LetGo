@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.dgut.main.member.entity">
+	<class name="Photo" table="le_talk_photo">
+		<meta attribute="sync-DAO">false</meta>
+		<cache usage="read-write"/>
+		<id name="id" type="integer" column="id"><generator class="identity"/></id>
+		<property name="photo" column="source_photo" type="string" not-null="true" length="150"/>
+		<property name="mini_photo" column="mini_photo" type="string" not-null="true" length="150"/>
+		
+		
+		
+	</class>
+</hibernate-mapping>

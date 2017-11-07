@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<!-- 
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.6
+Version: 4.5.5
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Dribbble: www.dribbble.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021769?ref=keenthemes
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+
+<head>
+<meta charset="utf-8" />
+<title>letsgo后台管理系统</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1" name="viewport" />
+<meta content="" name="description" />
+<meta content="" name="author" />
+<!-- BEGIN GLOBAL MANDATORY STYLES -->
+<#include "/admin_sys/head.html"/>
+ 
+<script type="text/javascript">
+$(document).ready(function(){ 
+$("#selectAll").click(function(){
+		if($("#selectAll").parent().attr("class")=="checked"){
+		
+
+			$("input[name=tableName]").attr("checked","true");
+			$("input[name=tableName]").parent().attr("class","checked");
+			$("input[name='tableName']").prop("disabled", true); 
+			
+			
+		}
+		else{
+			$("input[name=tableName]").parent().removeAttr("class","checked");
+			$("input[name='tableName']").prop("disabled", false);
+		
+		}
+		
+		
+		
+		
+	})
+}); 
+
+
+
+function getTableForm() {
+	return document.getElementById('tableForm');
+}
+function optBackUp() {
+	
+	if(!confirm('确定开始备份？')) 
+	{
+		return false;
+	}
+	else{
+	
+		var f = getTableForm();
+		var tables=new Array();
+		var i=0;
+		$('input[name="tableName"]').each(function(){ 
+			if($(this).parent().hasClass('checked')){
+			
+			tables.push($(this).attr('value'));
+			}
+		});
+		
+		if(tables.length==0){
+			alert("至少选择一个数据库表再进行备份");
+		}
+		else{
+
+			f.action="o_backup.do";
+		
+			$("#tableNames").val(tables.join(","));
+			f.submit();
+		}
+	}
+}
+</script>
+</head>
+<!-- END HEAD -->
+
+<body
+	class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid page-md">
+	<!-- BEGIN HEADER -->
+	<#include "/admin_sys/top.html"/>
+	<!-- END HEADER -->
+	<!-- BEGIN HEADER & CONTENT DIVIDER -->
+	<div class="clearfix"></div>
+	<!-- END HEADER & CONTENT DIVIDER -->
+	<!-- BEGIN CONTAINER -->
+	<div class="page-container">
+		<!-- BEGIN SIDEBAR -->
+		<#assign tb_17=true />
+			<#assign tb_17_ul=true  />
+			<#assign tb_17_li_1=true />
+			<#assign tb_17_arrow=true />
+		<#include "/admin_sys/left.html"/>
+		<!-- END SIDEBAR -->
+		<div class="page-content-wrapper">
+			<!-- BEGIN CONTENT BODY -->
+			<div style="min-height:1022px" class="page-content">
+				<!-- page bar start -->
+				<div class="page-bar">
+
+					<ul class="page-breadcrumb">
+						<li><a href="${base}/admin/data/v_list.do">数据库备份</a> <i class="fa fa-angle-right"></i>
+						</li>
+						<li><span>数据库列表</span></li>
+					</ul>
+				</div>
+
+
+				<div class="row">
+					<div class="col-md-12">
+						<!-- BEGIN SAMPLE TABLE PORTLET-->
+						<div class="portlet box blue">
+							<div class="portlet-title">
+								<div class="caption">
+									<i class="fa fa-comments"></i>数据库备份列表
+								</div>
+								<div class="actions">
+								<!-- onclick="if(!confirm('确定开始备份？')) {return false;}" -->
+									<a  class="btn btn-default btn-sm" onclick="javascript:optBackUp();"> <i
+										class="fa fa-database"></i>备份</a> 
+								</div>
+							</div>
+							
+							
+							<div class="portlet-body">
+									<form id="tableForm" method="post">
+									<div class="table-scrollable">
+										<table
+											class="table table-bordered table-hover dataTable ">
+											<thead>
+												<tr>
+													<th ><input type="checkbox" id="selectAll" >全选</th>
+													<th style="text-align: center;" >表名</th>
+													<th style="text-align: center;" >操作选项</th>			
+												</tr>
+											</thead>
+											<tbody>
+												
+												<#list tables as table>
+												<tr>
+													<td> <input type="checkbox" name="tableName" value="${table}"></td>
+													<td  >${table}</td>
+													<td style="text-align: center;" ><a  href="v_listfields.do?tablename=${table!}" class="pn-opt">查看</a></td>
+												</tr>
+
+												</#list>
+												
+											</tbody>
+										</table>
+									</div>
+									<input type="hidden" name="tableNames" id="tableNames"/>
+									</form>
+							</div>
+							
+
+						</div>
+						<!-- END SAMPLE TABLE PORTLET-->
+					</div>
+
+				</div>
+
+			</div>
+		</div>
+		<!-- BEGIN CONTENT -->
+
+		<#include "../common/bootAlert_message.html"/>
+	</div>
+	
+	<!-- END CONTAINER -->
+	
+	<script
+        src="${base}/res/assets/global/plugins/jquery-validation/js/jquery.validate.min.js"
+        type="text/javascript"></script>
+<script
+        src="${base}/res/assets/global/plugins/jquery-validation/js/localization/messages_zh.js"></script>
+<script
+        src="${base}/res/assets/global/plugins/jquery-validation/js/additional-methods.min.js"
+        type="text/javascript"></script>
+</body>
+
+</html>

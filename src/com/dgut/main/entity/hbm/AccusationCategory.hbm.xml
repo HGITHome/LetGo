@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.dgut.main.entity">
+    <class name="AccusationCategory" table="le_accusation_category">
+        <meta attribute="sync-DAO">false</meta>
+        <cache usage="read-write"/>
+        <id name="id" type="java.lang.Integer" column="category_id"><generator class="identity"/></id>
+
+        <property name="name" type="java.lang.String" column="name" length="20"/>
+        <property name="priority" type="java.lang.Integer" column="priority" />
+
+
+        <bag name="types" table="le_accusation_type" inverse="true" cascade="all">
+            <key column="category_id"></key>
+            <one-to-many class="AccusationType"></one-to-many>
+        </bag>
+
+
+
+
+    </class>
+</hibernate-mapping>

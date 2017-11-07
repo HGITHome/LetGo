@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd" >
+
+<hibernate-mapping package="com.dgut.main.entity">
+	<class name="com.dgut.main.entity.ApkVersion" table="le_apk_version">
+		<meta attribute="sync-DAO">false</meta>
+		<id name="version_id" type="string" column="version_id">
+			<generator class="assigned" />
+		</id>
+
+		<property name="url" column="download_url" type="string"
+			not-null="true" length="250" />
+		<property name="note" column="note" type="string" length="250"
+			not-null="true" />
+		
+		<property name="isValid" column="isValid" type="boolean" not-null="true"/>
+		
+		<property name="type" column="change_type" type="string" not-null="true"/>
+		<property name="publish_time" column="publish_time" type="timestamp" not-null="true"/>
+
+	</class>
+</hibernate-mapping>

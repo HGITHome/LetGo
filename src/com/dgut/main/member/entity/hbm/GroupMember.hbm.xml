@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.dgut.main.member.entity">
+	<class name="GroupMember" table="le_chatgroup_member">
+		<meta attribute="sync-DAO">false</meta>
+		<cache usage="read-write"/>
+		<id name="id" type="integer" column="id"><generator class="identity"/></id>
+
+		<property name="enterTime" type="timestamp" column="enter_time"/>
+		<property name="disabled" type="boolean" column="disabled"/>
+
+		<many-to-one name="member" column="user_id"  class="Member" />
+		<many-to-one name="chatGroup"  column="group_id" class="ChatGroup" />
+
+	
+		
+	</class>
+</hibernate-mapping>

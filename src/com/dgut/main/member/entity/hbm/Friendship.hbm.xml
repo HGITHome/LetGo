@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.dgut.main.member.entity">
+	<class name="Friendship" table="le_friendship">
+		<meta attribute="sync-DAO">false</meta>
+		<!-- <cache usage="read-write"/> -->
+		<id name="id" type="integer" column="id"><generator class="identity"/></id>
+		
+		
+	
+		<!--<property name="friendship_status" column="friendship_status" type="integer" not-null="true" />-->
+
+		<property name="friendship_status">
+			<type name="org.hibernate.type.EnumType">
+				<param name="enumClass">com.dgut.main.member.entity.base.BaseFriendship$Friendship_status</param>
+			</type>
+		</property>
+
+		<property name="registerTime" column="register_time" type="timestamp" not-null="true"/>
+		<property name="alias" column="alias" type="string" length="10" not-null="false"/>
+		<property name="chinese" column="chinese" type="string" length="10" not-null="true"/>
+		<many-to-one name="friend" column="friend_id" class="Member" unique="true"/>
+		
+		
+		<many-to-one name="owner" column="user_id" class="Member" unique="true"></many-to-one>
+		
+	
+		
+	</class>
+</hibernate-mapping>

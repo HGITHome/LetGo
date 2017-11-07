@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.dgut.main.entity">
+    <class name="Accusation" table="le_accusation_user">
+        <meta attribute="sync-DAO">false</meta>
+        <cache usage="read-write"/>
+        <id name="id" type="java.lang.Integer" column="id"><generator class="identity"/></id>
+
+        <property name="publishTime" type="timestamp" column="publish_time" />
+        <property name="content" type="java.lang.String" column="content" />
+
+        <property name="handleFlag" type="java.lang.Boolean" column="handle_flag"/>
+        <property name="reply" type="string" column="reply" not-null="false" />
+        <property name="replyTime" type="timestamp" column="reply_time" length="20"/>
+
+        <many-to-one name="reporter" column="reporter_id" class="com.dgut.main.member.entity.Member"/>
+        <many-to-one name="respondent" column="respondent_id" class="com.dgut.main.member.entity.Member"/>
+        <many-to-one name="type" column="type_id" class="AccusationType"/>
+
+
+
+
+
+
+    </class>
+</hibernate-mapping>

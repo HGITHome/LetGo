@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.dgut.main.member.entity">
+	<class name="TalkComment" table="le_talk_comment">
+		<meta attribute="sync-DAO">false</meta>
+		<cache usage="read-write"/>
+		<id name="id" type="integer" column="id"><generator class="identity"/></id>
+		<property name="message_time" column="comment_time" type="timestamp" not-null="true"/>
+		<property name="disabled" column="disabled" type="boolean" not-null="true"/>
+		<many-to-one name="talk" class="Talk" column="talk_id" not-null="true"/>
+		<many-to-one name="publisher" unique="true" class="Member" column="publisher_id" />
+		
+		<many-to-one name="receiver" unique="true" class="Member" column="receiver_id"/>
+		<property name="content" type="string" column="content" not-null="true"/>
+		
+		
+		
+	</class>
+</hibernate-mapping>

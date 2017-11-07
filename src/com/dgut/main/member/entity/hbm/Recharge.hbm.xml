@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.dgut.main.member.entity">
+	<class name="Recharge" table="le_recharge">
+		<meta attribute="sync-DAO">false</meta>
+		<cache usage="read-write"/>
+		<id name="id" type="java.lang.String" column="recharge_id"><generator class="assigned"/></id>
+		<property name="rechargeTime" column="recharge_time" type="timestamp" not-null="true"/>
+		<property name="rechargeAmount" column="recharge_amount" type="java.lang.Double" not-null="true"/>
+		<property name="rechargeStatus" column="recharge_status" type="java.lang.Boolean" not-null="true"/>
+		<property name="chargeId" column="charge_id" type="java.lang.String" length="50" not-null="true"/>
+		<property name="rechargeIp" column="recharge_ip" type="java.lang.String" length="20" not-null="true"/>
+		<property name="transactionNo" column="transaction_no" type="java.lang.String" length="30" not-null="false"/>
+		<many-to-one name="member" column="userid" class="Member" />
+		
+	</class>
+</hibernate-mapping>
